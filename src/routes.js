@@ -3,13 +3,6 @@ import { Database } from "./database.js"
 import { buildRoutePath } from "./utils/build-route-path.js"
 
 const database = new Database()
-
-/**
- * @swagger
- * tags:
- *   name: Tasks
- *   description: Task management operations
- */
 export const routes = [
     {
         method: 'POST',
@@ -81,7 +74,7 @@ export const routes = [
                 )
             }
 
-            const task = database.select({id})
+            const task = database.select(id)
 
             if(task.length === 0){
                 return res.writeHead(404).end(JSON.stringify({message: "task not found"}))
@@ -103,7 +96,7 @@ export const routes = [
         handler: (req,res)=>{
             const {id} = req.params
 
-            const task = database.select({id})
+            const task = database.select(id)
 
             if(task.length === 0){
                 return res.writeHead(404).end(JSON.stringify({message: "task not found"}))
@@ -120,9 +113,8 @@ export const routes = [
         method: 'PATCH',
         path: buildRoutePath('/tasks/:id/complete'),
         handler: (req,res)=>{
-            console.log("oi")
             const {id} = req.params
-            const task = database.select({id})
+            const task = database.select(id)
 
             if(task.length === 0){
                 return res.writeHead(402).end(JSON.stringify({message:"task not found"}))
